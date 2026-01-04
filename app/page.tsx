@@ -1,65 +1,98 @@
-import Image from "next/image";
+"use client";
+
+import {QRCodeCanvas} from 'qrcode.react';
+import { FaFileUpload } from "react-icons/fa";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+   <main className="container">
+    <section className="title-container">
+    <h1 className="page-title">Crie e personalize o seu próprio <span>QR Code!</span></h1>
+    <img src="/down-arrow.png" alt="Down arrow details" className="down-arrow-details" />
+    </section>
+    <section className="qr-code-container">
+      <div className="qr-code">
+        <div className="link-input">
+          <label htmlFor="link">
+            Digite o seu link
+          </label>
+          <input type="text" id="link" placeholder="Seu link aqui"/>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="qr-code-preview">
+          <p>QR Code Preview</p>
+          <QRCodeCanvas
+            value={"https://picturesofpeoplescanningqrcodes.tumblr.com/"}
+            title={"Title for my QR Code"}
+            size={128}
+            bgColor={"#ffffff"}
+            fgColor={"#000000"}
+            level={"L"}
+            imageSettings={{
+              src: "https://static.zpao.com/favicon.png",
+              x: undefined,
+              y: undefined,
+              height: 24,
+              width: 24,
+              opacity: 1,
+              excavate: true,
+            }}
+          />
         </div>
-      </main>
-    </div>
+      </div>
+      <div className='qr-code-customization'>
+        <div className='customization-container'>
+            <h3>
+              Cores
+            </h3>
+            <div className='input-container colors'>
+              <div className='input-box'>
+                <label htmlFor='fgColor'>
+                  Cor principal
+                </label>
+                <input type='color' className='input-color' id='fgColor'/>
+              </div>
+
+              <div className='input-box'>
+                <label htmlFor='bgColor'>
+                  Cor do fundo
+                </label>
+                <input type='color' className='input-color' id='bgColor'/>
+              </div>
+            </div>
+        </div>
+        <div className='customization-container'>
+          <h3>
+            Logo
+          </h3>
+          <div className='input-container'>
+              <div className='input-box'>
+                <label htmlFor='logo'>
+                  Insira o seu logo
+                </label>
+                <input type='file' className='input-file' id='logo' accept='image/*'/>
+                <button className='input-file-button'>
+                  <FaFileUpload />
+                  Escolher arquivo
+                </button>
+              </div>
+
+              <div className='input-box'>
+                <label htmlFor='logoSize'>
+                  Tamanho da logo
+                </label>
+                <select name='logoSize' id='logoSize'>
+                  <option value='24'>24px x 24px</option>
+                  <option value='38'>48px x 48px</option>
+                  <option value='96'>96px x 96px</option>
+                </select>
+              </div>
+            </div>
+        </div>
+        <button className='download-button'>
+          Baixar QR Code
+        </button>
+      </div>
+    </section>
+   </main>
   );
 }
